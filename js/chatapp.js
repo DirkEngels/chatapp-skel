@@ -318,6 +318,13 @@ window.ChatApp.UserListView = Backbone.View.extend({
         userTemplate.text(user.get('nickName'));
         userTemplate.attr('id', 'nick-' + calcMD5(user.get('nickName')));
 
+        if (window.ChatApp.application.nickName == user.get('nickName')) {
+            userTemplate.attr('class', 'me');
+            console.log('ADDING ME: ' + user.get('nickName'));
+        } else {
+            console.log('ADDING ' + user.get('nickName'));
+        }
+
         this.el.append(userTemplate);
 
     },
