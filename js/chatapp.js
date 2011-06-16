@@ -310,8 +310,8 @@ window.ChatApp.UserListView = Backbone.View.extend({
     },
 
     addUser : function(user) {
-    	console.log(window.ChatApp.application.nickName);
-    	
+        console.log(window.ChatApp.application.nickName);
+
         var userTemplateDiv = this.$('.template');
         var userTemplate = userTemplateDiv.clone();
         userTemplate.removeClass('template');
@@ -327,12 +327,22 @@ window.ChatApp.UserListView = Backbone.View.extend({
 
         this.el.append(userTemplate);
 
+        this.sortUser();
     },
 
     removeUser : function(user) {
         $('#nick-' + calcMD5(user.get('nickName'))).remove();
         console.log('REMOVING ' + user.get('nickName'));
+
+        this.sortUser();
+    },
+
+    sortUser : function()  {
+        $('section.userList li').sortElements(function(a, b){
+            return $(a).text() > $(b).text() ? 1 : -1;
+        });
     }
+    
 
 });
 
