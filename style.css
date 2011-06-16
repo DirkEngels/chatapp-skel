@@ -160,3 +160,8 @@ section.inputArea button {
     width: 100px;*/
 }
 
+
+section.userList li.me {
+    color: red;
+    background-color: #f0f0f0;
+}
