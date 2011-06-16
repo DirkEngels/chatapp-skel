@@ -299,6 +299,33 @@ window.ChatApp.MessageInputView = Backbone.View.extend({
  * UserCollection
  */
 window.ChatApp.UserListView = Backbone.View.extend({
+    initialize : function() {
+        var self = this;
+        this.collection.bind('add', function(user) {
+            self.addUser(user);
+        });
+        this.collection.bind('remove', function(user) {
+            self.removeUser(user);
+        });
+    },
+
+    addUser : function(user) {
+    	console.log(window.ChatApp.application.nickName);
+    	
+        var userTemplateDiv = this.$('.template');
+        var userTemplate = userTemplateDiv.clone();
+        userTemplate.removeClass('template');
+        userTemplate.text(user.get('nickName'));
+        userTemplate.attr('id', 'nick-' + calcMD5(user.get('nickName')));
+
+        this.el.append(userTemplate);
+
+    },
+
+    removeUser : function(user) {
+        $('#nick-' + calcMD5(user.get('nickName'))).remove();
+        console.log('REMOVING ' + user.get('nickName'));
+    }
 
 });
 
