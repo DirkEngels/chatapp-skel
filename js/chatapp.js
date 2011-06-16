@@ -244,7 +244,21 @@ window.ChatApp.parseISO8601 = function(str) {
  * MessageCollection
  */
 window.ChatApp.MessageListView = Backbone.View.extend({
-  
+    initialize : function() {
+        var self = this;
+        this.collection.bind('add', function(message) {
+            self.addMessage(message);
+        });
+    },
+    addMessage : function(message) {
+        var messageTemplateDiv = this.$('li.template');
+        var messageTemplate = messageTemplateDiv.clone();
+        messageTemplate.removeClass('template');
+        messageTemplate.find('p').text(message.get('message'));
+        messageTemplate.find('div.nickName').text(message.get('nickName'));
+        messageTemplate.find('time').text(message.get('dateTime').toTimeString());
+        this.el.append(messageTemplate);
+    }
 });
 
 
